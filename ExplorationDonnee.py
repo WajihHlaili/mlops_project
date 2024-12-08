@@ -44,7 +44,6 @@ data=pd.read_csv('Car.csv') # lire
 
 data.head() #Affichage des premières lignes des données
 
-# %%
 # Utilisation de la méthode .shape pour obtenir les dimensions du dataframe Dimensions des données (nombre de lignes et de colonnes
 dimensions = data.shape
 

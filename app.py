@@ -4,7 +4,7 @@ import json
 from fastapi import FastAPI, Request
 from fastapi.middleware.wsgi import WSGIMiddleware
 
-app = Flask(__name__, template_folder='client', static_folder='client')
+app = Flask(__name__, template_folder='client/templates', static_folder='client/static')
 
 
 fastapi = FastAPI()
