@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Car Price Prediction </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/animate/animate.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')}}"
+        rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="col-lg-6">
+        <div class="bg-primary h-100 d-flex flex-column justify-content-center text-center p-5 wow zoomIn"
+            data-wow-delay="0.6s">
+            <h1 class="text-white mb-4">Obtenez une Prédiction de Prix</h1>
+            <form method="POST" id="prediction-form" action="/prediction">
+                <div class="row g-3">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label" style="color: white;"
+                            for="transmission">Type de transmission :</label>
+                        <select name="transmission" id="transmission" class="form-select" required>
+                            <option selected>Choisissez le type de transmission</option>
+                            <option value="Manuel">Manuel</option>
+                            <option value="Automatique">Automatique</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" for="fuel" style="color: white;"
+                            class="form-label">Type de carburant :</label>
+                        <select id="fuel" name="fuel" class="form-select" required>
+                            <option selected>Choisissez le type de carburant</option><br />
+                            <option value="Diesel">Diesel</option>
+                            <option value="Petrol">Petrol</option>
+                            <option value="CNG">CNG</option>
+                            <option value="LPG">LPG</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" for="owner" style="color: white;"
+                            class="form-label">Nombre d'anciens propriétaires</label>
+                        <select id="owner" name="owner" class="form-select" required>
+                            <option value="Un" selected>Un</option>
+                            <option value="Deux">Deux</option>
+                            <option value="Trois et plus">Trois et plus</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" for="year" style="color: white;"
+                            class="form-label">Année d'importation :</label>
+                        <select id="year" name="year" class="form-select" required>
+                            <option selected>Choisissez l'année d'importation</option>
+                            <option value="2006">2006</option>
+                            <!-- Ajoutez d'autres années au besoin -->
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" for="km_driven" style="color: white;"
+                            class="form-label">Kilomètres parcourus (odomètre) :</label>
+                        <input type="number" name="km_driven" class="form-control" id="km_driven" required>
+                        <div id="fill1" class="text-center text-white pt-2"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" for="engine" style="color: white;"
+                            class="form-label">Capacité du moteur (centimètres cubes (cc)) :</label>
+                        <input type="number" name="engine" class="form-control" id="engine" required>
+                        <div id="fill2" class="text-center text-white pt-2"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" for="max_power" style="color: white;"
+                            class="form-label">Max Power :</label>
+                        <input type="number" name="max_power" class="form-control" id="max_power" required>
+                        <div id="fill3" class="text-center text-white pt-2"></div>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" id="prediction" class="btn btn-secondary btn-lg">Obtenir la
+                            Prédiction</button>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <p class="label" style="color: white;">Prix Prédit :</p>
+                        <div class="input-group my-3">
+                            <input type="text" class="form-control form-control" placeholder="{{Pred}}"
+                                id="predicted-price" readonly>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/wow/wow.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/counterup/counterup.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const jsonObject = {};
+
+            formData.forEach((value, key) => {
+                jsonObject[key] = value;
+            });
+
+            console.log(JSON.stringify(jsonObject))
+
+            $.ajax({
+                type: "POST",
+                url: "/prediction",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (result) {
+                    console.log("Result:");
+                    console.log(result);
+                    document.getElementById('predicted-price').value = result.Predict
+                }
+            })
+
+        });
+    </script>
+
+</body>
+
+</html>
