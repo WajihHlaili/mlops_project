@@ -7,97 +7,93 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+
+    <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap"
         rel="stylesheet">
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet"> <!-- Custom CSS link -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"> <!-- Custom CSS link -->
 </head>
 
 <body>
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <div class="bg-primary h-100 d-flex flex-column justify-content-center text-center p-5 wow zoomIn"
-                    data-wow-delay="0.6s">
+                <div class="bg-primary h-100 d-flex flex-column justify-content-center text-center p-5">
                     <h1 class="text-white mb-4">Obtenez une Prédiction de Prix</h1>
-                    <form method="POST" id="prediction-form" action="/prediction">
+                    <form method="POST" id="prediction-form">
                         <div class="row g-3">
+                            <!-- Transmission -->
                             <div class="mb-3">
                                 <label for="transmission" class="form-label">Type de transmission :</label>
                                 <select name="transmission" id="transmission" class="form-select" required>
-                                    <option selected>Choisissez le type de transmission</option>
+                                    <option value="" disabled selected>Choisissez le type de transmission</option>
                                     <option value="Manuel">Manuel</option>
                                     <option value="Automatique">Automatique</option>
                                 </select>
                             </div>
+                            <!-- Fuel -->
                             <div class="mb-3">
                                 <label for="fuel" class="form-label">Type de carburant :</label>
                                 <select id="fuel" name="fuel" class="form-select" required>
-                                    <option selected>Choisissez le type de carburant</option>
+                                    <option value="" disabled selected>Choisissez le type de carburant</option>
                                     <option value="Diesel">Diesel</option>
                                     <option value="Petrol">Petrol</option>
                                     <option value="CNG">CNG</option>
                                     <option value="LPG">LPG</option>
                                 </select>
                             </div>
+                            <!-- Owner -->
                             <div class="mb-3">
                                 <label for="owner" class="form-label">Nombre d'anciens propriétaires :</label>
                                 <select id="owner" name="owner" class="form-select" required>
-                                    <option value="Un" selected>Un</option>
+                                    <option value="" disabled selected>Choisissez le nombre d'anciens propriétaires
+                                    </option>
+                                    <option value="Un">Un</option>
                                     <option value="Deux">Deux</option>
                                     <option value="Trois et plus">Trois et plus</option>
                                 </select>
                             </div>
+                            <!-- Year -->
                             <div class="mb-3">
                                 <label for="year" class="form-label">Année d'importation :</label>
                                 <select id="year" name="year" class="form-select" required>
-                                    <option selected>Choisissez l'année d'importation</option>
-                                    <option value="2006">2006</option>
-                                    <option value="2007">2007</option>
-                                    <option value="2008">2008</option>
-                                    <option value="2009">2009</option>
-                                    <option value="2010">2010</option>
-                                    <option value="2011">2011</option>
-                                    <option value="2012">2012</option>
-                                    <option value="2013">2013</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2020">2020</option>
-                                    <!-- Add more years if needed -->
+                                    <option value="" disabled selected>Choisissez l'année d'importation</option>
+                                    {% for year in range(2006, 2021) %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
+                            <!-- Kilometers Driven -->
                             <div class="mb-3">
                                 <label for="km_driven" class="form-label">Kilomètres parcourus (odomètre) :</label>
                                 <input type="number" name="km_driven" class="form-control" id="km_driven" required>
                             </div>
+                            <!-- Engine Capacity -->
                             <div class="mb-3">
                                 <label for="engine" class="form-label">Capacité du moteur (centimètres cubes (cc))
                                     :</label>
                                 <input type="number" name="engine" class="form-control" id="engine" required>
                             </div>
+                            <!-- Max Power -->
                             <div class="mb-3">
                                 <label for="max_power" class="form-label">Max Power :</label>
                                 <input type="number" name="max_power" class="form-control" id="max_power" required>
                             </div>
+                            <!-- Submit Button -->
                             <div class="col-12">
                                 <button type="submit" id="prediction" class="btn btn-primary btn-lg w-100">Obtenir la
                                     Prédiction</button>
                             </div>
+                            <!-- Predicted Price -->
                             <div class="col-12 mt-3">
                                 <p class="label text-white">Prix Prédit :</p>
-                                <div class="input-group my-3">
-                                    <input type="text" class="form-control" placeholder="{{Pred}}" id="predicted-price"
-                                        readonly>
-                                </div>
+                                <input type="text" class="form-control" placeholder="Le prix prédit apparaîtra ici"
+                                    id="predicted-price" readonly>
                             </div>
                         </div>
                     </form>
@@ -105,11 +101,13 @@
             </div>
         </div>
     </div>
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('prediction-form').addEventListener('submit', function (event) {
             event.preventDefault();
+
             const form = event.target;
             const formData = new FormData(form);
             const jsonObject = {};
@@ -118,8 +116,6 @@
                 jsonObject[key] = value;
             });
 
-            console.log(JSON.stringify(jsonObject))
-
             $.ajax({
                 type: "POST",
                 url: "/prediction",
@@ -127,11 +123,15 @@
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (result) {
-                    console.log("Result:");
-                    console.log(result);
-                    document.getElementById('predicted-price').value = result.Predict
+                    if (result.Predict) {
+                        document.getElementById('predicted-price').value = result.Predict + " USD";
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Erreur lors de la prédiction :", xhr.responseText);
+                    alert("Une erreur s'est produite lors de la prédiction.");
                 }
-            })
+            });
         });
     </script>
 </body>
