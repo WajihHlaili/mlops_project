@@ -124,7 +124,10 @@
                 dataType: 'json',
                 success: function (result) {
                     if (result.Predict) {
-                        document.getElementById('predicted-price').value = result.Predict + " USD";
+                        // Make sure result.Predict is returned in the correct format (e.g., string)
+                        document.getElementById('predicted-price').value = result.Predict + " TND";  // Ensure 'TND' is added if expected
+                    } else {
+                        alert("Prediction failed.");
                     }
                 },
                 error: function (xhr) {
@@ -132,6 +135,7 @@
                     alert("Une erreur s'est produite lors de la prédiction.");
                 }
             });
+
         });
     </script>
 </body>
