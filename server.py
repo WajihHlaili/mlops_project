@@ -65,14 +65,9 @@ def predict(item: Item):
 
 
 
+
+
 # Run the FastAPI app
-import uvicorn
 if __name__ == "__main__":
-    import asyncio
-
-    async def main():
-        config = uvicorn.Config(app, host="0.0.0.0", port=8000)
-        server = uvicorn.Server(config)
-        await server.serve()
-
-    asyncio.run(main()) 
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

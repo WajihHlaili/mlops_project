@@ -1,0 +1,19 @@
+# Use an official Python runtime as a parent image
+FROM python:3.11
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+# Install dependencies with an increased timeout
+RUN pip install --no-cache-dir -r requirements.txt --timeout=600
+
+# Copy the Flask app and client into the container
+COPY app.py /app
+COPY client/ /app/client/
+# Expose the Flask port
+EXPOSE 8080
+
+# Set the command to run the Flask app
+CMD ["python", "app.py"]

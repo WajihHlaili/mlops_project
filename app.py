@@ -1,15 +1,14 @@
 from flask import Flask, render_template, request, jsonify
 import requests
 import json
-from fastapi import FastAPI, Request
-from fastapi.middleware.wsgi import WSGIMiddleware
+
 
 # Create Flask app
 app = Flask(__name__, template_folder='client/templates', static_folder='client/static')
 
-fastapi = FastAPI()
+
 # External URL of the FastAPI service (to be used in GCP)
-API_URL = "https://car-price-prediction-service-180154123347.us-central1.run.app"
+API_URL = "https://fastapi-app-180154123347.us-central1.run.app"
   # Replace with actual URL or IP
 
 fuels = ['Diesel', 'Petrol', 'CNG', 'LPG']
@@ -69,5 +68,5 @@ def predict():
 
 
 if __name__ == '__main__':
-    fastapi.mount("/", WSGIMiddleware(app))
+    
     app.run(debug=True, host='0.0.0.0', port=8080)
