@@ -27,6 +27,7 @@ from xgboost import XGBClassifier
 import mlflow
 import datetime
 import warnings
+import mlflow.sklearn
 
 pd.options.display.max_columns = None
 warnings.filterwarnings("ignore")
@@ -34,7 +35,7 @@ warnings.filterwarnings("ignore")
 from sklearn.preprocessing import StandardScaler  # Importe StandardScaler pour la normalisation des données.
 
 version = "v1.0"
-data_url = "data_cleaned.csv"
+data_url = "data/processed/data_cleaned.csv"
 
 import os
 os.environ['MLFLOW_TRACKING_USERNAME']= "WajihHlaili"
@@ -48,7 +49,7 @@ mlflow.set_experiment("CarPricePrediction_mlFlow-experiment")
 
 
 
-data = pd.read_csv("data_cleaned.csv")
+data = pd.read_csv("data/processed/data_cleaned.csv")
 
 data.head()
 
@@ -145,6 +146,13 @@ x_test_sc = scaller.transform(X_test)
 x_train_sc[0:10,:]
 
 
+logged_model = f'runs:/{run_id}/ML_models'
+model = mlflow.pyfunc.load_model(logged_model)
+
+import joblib
+joblib.dump(model, 'models/new_model.pkl')
+mlflow.register_model(model_uri=logged_model, name='best_model')
+print("Model logged to DagsHub.")
 
 
 

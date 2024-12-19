@@ -1,0 +1,23 @@
+stages:
+  preprocess:
+    cmd: python src/preprocess.py --input data/raw/car.csv --output data/processed/cleaned_dataset.csv
+    deps:
+      - src/preprocess.py
+      - data/raw/car.csv
+    outs:
+      - data/processed/cleaned_dataset.csv
+
+  train:
+    cmd: python src/train.py --input data/processed/cleaned_dataset.csv --output models/new_model.pkl
+    deps:
+      - src/train.py
+      - data/processed/cleaned_dataset.csv
+    outs:
+      - models/new_model.pkl
+
+  evaluate:
+    cmd: python src/evaluate.py --new models/new_model.pkl --current models/current_model.pkl
+    deps:
+      - src/evaluate.py
+      - models/new_model.pkl
+      - models/current_model.pkl

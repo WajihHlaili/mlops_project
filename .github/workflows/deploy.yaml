@@ -1,0 +1,53 @@
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout Code
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Cloud SDK
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configure gcloud CLI
+        run: |
+          gcloud config set project automlops-445203
+
+      # Step 3: Build and Push Docker Images
+      - name: Build and Push Docker Image for Frontend
+        run: |
+          docker build -t gcr.io/automlops-445203/frontend -f Dockerfile-flask .
+          docker push gcr.io/automlops-445203/frontend
+
+      - name: Build and Push Docker Image for Backend
+        run: |
+          docker build -t gcr.io/automlops-445203/backend -f Dockerfile-fastapi .
+          docker push gcr.io/automlops-445203/backend
+
+      # Step 4: Deploy to Cloud Run
+      - name: Deploy Frontend to Cloud Run
+        run: |
+          gcloud run deploy frontend \
+            --image gcr.io/automlops-445203/frontend \
+            --region us-central1 \
+            --platform managed \
+            --allow-unauthenticated
+
+      - name: Deploy Backend to Cloud Run
+        run: |
+          gcloud run deploy backend \
+            --image gcr.io/automlops-445203/backend \
+            --region central1 \
+            --platform managed \
+            --allow-unauthenticated

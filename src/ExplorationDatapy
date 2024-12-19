@@ -38,7 +38,7 @@ import seaborn as sns  # Importe la bibliothèque seaborn pour la visualisation 
 
 # # 2. charger des données
 
-data=pd.read_csv('Car.csv') # lire
+data=pd.read_csv('data/raw/car.csv') # lire
 
 # # 3. Visualisation de données
 
@@ -103,12 +103,6 @@ custom_bar_plot(data, 'fuel', figsize=(12, 6), rotation=45)  # Appelle la foncti
 
 data['fuel'].hist()
 
-import pygwalker as pyg
-walker = pyg.walk(
-    data,
-    spec="./chart_meta_0.json",    # this json file will save your chart state, you need to click save button in ui mannual when you finish a chart, 'autosave' will be supported in the future.
-    use_kernel_calc=True,          # set `use_kernel_calc=True`, pygwalker will use duckdb as computing engine, it support you explore bigger dataset(<=100GB).
-)
 
 
 

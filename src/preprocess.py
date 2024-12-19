@@ -9,7 +9,7 @@ import seaborn as sns  # Importe la bibliothèque seaborn pour la visualisation 
 
 # # 2. charger des données
 
-data=pd.read_csv('Data_csv/Car.csv') # lire
+data=pd.read_csv('data/raw/car.csv') # lire
 
 # # 3. Data Processing and Cleaning
 
@@ -435,7 +435,7 @@ data.replace('LPG',4, inplace = True)
 data['transmission'] = data['transmission'].astype(int)
 data.drop(columns=['name'], axis=1, inplace = True)
 
-data.to_csv('./Data_csv/data_cleaned.csv',index=False)
+data.to_csv('./data/processed/data_cleaned.csv',index=False)
 
 
 
