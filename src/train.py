@@ -32,7 +32,7 @@ import mlflow.sklearn
 pd.options.display.max_columns = None
 warnings.filterwarnings("ignore")
 
-from sklearn.preprocessing import StandardScaler  # Importe StandardScaler pour la normalisation des données.
+from sklearn.preprocessing import StandardScaler  # Importe StandardScaler pour l normalisation des données.
 
 version = "v1.0"
 data_url = "data/processed/data_cleaned.csv"
@@ -49,7 +49,7 @@ mlflow.set_experiment("CarPricePrediction_mlFlow-experiment")
 
 
 
-data = pd.read_csv("data/processed/data_cleaned.csv")
+data = pd.read_csv("data/processed/cleaned_dataset.csv")
 
 data.head()
 
@@ -73,14 +73,12 @@ Y_train.shape, Y_test.shape
 
 # 1. Linear Regression
 # 2. Decision Tree Regressor
-# 3. Random Forest Regressor
-# 4. Gradient Boosting Regression
+# 3. Gradient Boosting Regression
 
 mlflow.sklearn.autolog(disable=True)
 
 models = {"Linear Regression": LinearRegression(),
          "Decision Tree Regressor": DecisionTreeRegressor(),
-         "Random Forest Regressor": RandomForestRegressor(),
          "Gradient Boosting Regression":GradientBoostingRegressor(learning_rate=0.1, n_estimators=500, random_state=0)}
 
 

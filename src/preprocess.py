@@ -435,7 +435,7 @@ data.replace('LPG',4, inplace = True)
 data['transmission'] = data['transmission'].astype(int)
 data.drop(columns=['name'], axis=1, inplace = True)
 
-data.to_csv('./data/processed/data_cleaned.csv',index=False)
+data.to_csv('./data/processed/cleaned_dataset.csv',index=False)
 
 
 
