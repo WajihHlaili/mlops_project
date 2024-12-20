@@ -69,14 +69,8 @@ threshold = 15
 name_counts['other'] = name_counts[name_counts < threshold].sum()
 name_counts = name_counts[name_counts >= threshold]
 
-# . Créez un graphique à barres pour la colonne 'name' mise à jour.
-plt.figure(figsize=(12, 6))
-plot = sns.barplot(x=name_counts.index, y=name_counts.values)
-plt.xticks(rotation=90)
-plt.xlabel('Car Name')
-plt.ylabel('Count')
-plt.title('Car Name Counts (with "other" category)')
-plt.show()
+
+
 
 
 data.sample(10)
@@ -95,11 +89,7 @@ sns.set(style='whitegrid')
 # Création de la pairplot avec la palette de couleurs personnalisée
 pairplot = sns.pairplot(data[columns_to_include], hue='transmission', diag_kind='kde', kind='scatter', height=3.5)
 
-# Titre de la pairplot
-plt.suptitle("Relation entre l'année, le prix de vente, le kilométrage et la transmission des voitures")
 
-# Affichage de la pairplot
-plt.show()
 
 
 
@@ -107,7 +97,7 @@ plt.show()
 custom_palette = sns.color_palette("Set2")  # Vous pouvez choisir une palette qui vous convient
 
 # Création d'un graphique à barres pour la colonne 'fuel'
-plt.figure(figsize=(10, 6))
+
 plot = sns.countplot(x='fuel', data=data, palette=custom_palette)
 
 # Titre du graphique
@@ -122,8 +112,7 @@ for p in plot.patches:
 # Ajout de commentaires sur les observations
 plt.text(0.5, 3000, ".", ha='center', va='center', fontsize=12, color='blue')
 
-# Affichage du graphique
-plt.show()
+
 
 
 
@@ -142,7 +131,6 @@ other_fuel_count = fuel_counts[fuel_counts < threshold].sum()
 data['fuel'] = data['fuel'].apply(lambda x: 'other' if fuel_counts[x] < threshold else x)
 
 # Création d'un graphique à barres pour la colonne 'fuel'
-plt.figure(figsize=(10, 6))
 plot = sns.countplot(x='fuel', data=data, palette=custom_palette)
 
 # Titre du graphique
@@ -159,8 +147,7 @@ plt.text(0.9, 3000, f"Les types de carburant Diesel et Petrol sont les plus cour
                      f"Les autres types ont été regroupés sous 'other' ({other_fuel_count} occurrences).",
          ha='center', va='center', fontsize=12, color='blue')
 
-# Affichage du graphique
-plt.show()
+
 
 
 manuel = data[data['transmission']=='Manual']
@@ -176,14 +163,12 @@ automatique = data[data['transmission'] == 'Automatic']
 custom_palette = sns.color_palette("husl")  # Vous pouvez choisir une palette qui vous convient
 
 # Création de la pairplot pour les voitures automatiques en fonction du type de carburant
-plt.figure(figsize=(12, 8))
 pairplot = sns.pairplot(automatique[columns_to_include], hue='fuel', diag_kind='kde', kind='scatter',height=3.5)
 
 # Titre de la pairplot
 plt.suptitle("Relation entre l'année, le prix de vente, le kilométrage et le type de carburant des voitures automatiques")
 
-# Affichage de la pairplot
-plt.show()
+
 
 
 
@@ -225,19 +210,16 @@ ax[1].legend()
 # Ajustements visuels
 plt.tight_layout()
 
-# Affichage du graphique
-plt.show()
+
 
 
 # Créer un box plot pour la colonne 'km_driven'
-plt.figure(figsize=(8, 6))
 sns.boxplot(x=data['km_driven'], color='skyblue')
 
 # Titre du graphique
 plt.title('Box Plot des Kilomètres Parcourus')
 
-# Affichage du graphique
-plt.show()
+
 
 
 # Calcul de la moyenne du prix de vente pour les voitures manuelles chaque année
@@ -262,13 +244,12 @@ ax[1].set_xlabel('Année')
 ax[1].set_ylabel('Prix de vente')
 
 # Affichage du graphique
-plt.show()
+
 
 
 
 
 # Créer un box plot pour la distribution des prix de vente
-plt.figure(figsize=(8, 6))
 sns.boxplot(x=data['selling_price'], color='skyblue')
 
 # Titre du graphique
@@ -278,7 +259,7 @@ plt.title('Boîte à moustaches de la distribution des prix de vente')
 sns.stripplot(x=data['selling_price'], color='salmon', alpha=0.5)
 
 # Affichage du graphique
-plt.show()
+
 
 def remove_outliers_iqr(data, column):
     Q1 = data[column].quantile(0.25)
@@ -297,7 +278,7 @@ sns.scatterplot(data=data, x="km_driven", y="selling_price", hue='transmission',
 plt.title('Relation entre Kilométrage et Prix de Vente (par Transmission)')
 plt.xlabel('Kilométrage')
 plt.ylabel('Prix de Vente')
-plt.show()
+
 
 # Définition d'une fonction pour supprimer les outliers de 'km_driven'
 def remove_outlier_km_driven(data):
@@ -322,7 +303,7 @@ sns.scatterplot(data=data, x="km_driven", y="selling_price", hue='transmission',
 plt.title('Relation entre Kilométrage et Prix de Vente (par Transmission) - Après suppression des outliers')
 plt.xlabel('Kilométrage')
 plt.ylabel('Prix de Vente')
-plt.show()
+
 
 
 # La suppression des outliers a permis d'améliorer la qualité des données et de rendre la relation entre le kilométrage et le prix de vente plus claire dans le scatter plot.
@@ -332,7 +313,7 @@ sns.scatterplot(data=data, x="km_driven", y="selling_price", hue='transmission',
 plt.title('Relation entre Kilométrage et Prix de Vente (par Transmission)')
 plt.xlabel('Kilométrage')
 plt.ylabel('Prix de Vente')
-plt.show()
+
 
 # Définition d'une fonction pour supprimer les outliers de 'selling_price' en fonction de l'année et de la transmission
 def remove_outlier_selling_price(data):
@@ -361,7 +342,7 @@ sns.scatterplot(data=data, x="km_driven", y="selling_price", hue='transmission',
 plt.title('Relation entre Kilométrage et Prix de Vente (par Transmission) - Après suppression des outliers')
 plt.xlabel('Kilométrage')
 plt.ylabel('Prix de Vente')
-plt.show()
+
 
 
 def remove_outliers_iqr_by_year(data, column):
@@ -409,14 +390,13 @@ ax[1].set_title('Prix de vente moyen des voitures automatiques chaque année')
 ax[1].set_xlabel('Année')
 ax[1].set_ylabel('Prix de vente')
 
-# Affichage du graphique
-plt.show()
+
 
 
 data.head()
 
 data.drop(['mileage','seats'],axis=1,inplace=True) # D'apres le matrice corr
-
+data['selling_price'] = data['selling_price'] / 10
 data.fuel.unique()
 
 data.replace('Manual',2, inplace = True)
