@@ -57,7 +57,7 @@ def replace_model_if_better(new_model_path, current_model_path, X_test, y_test):
         
         os.rename(new_model_path, current_model_path)  # Rename new model
     else:
-        print("The current model is better. Discarding the new model.")
+        print("The current model is better. .")
          
 
 def main():

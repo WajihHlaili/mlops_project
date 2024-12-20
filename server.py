@@ -4,15 +4,13 @@ import mlflow
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-
-# Set up MLflow
-mlflow.set_tracking_uri('https://dagshub.com/WajihHlaili/my-first-repo.mlflow')
+import os
+import joblib
+# Path to the local model
+MODEL_PATH = os.path.join("models", "current_model.pkl")
 
 # Load the model once at the start
-df_mlflow = mlflow.search_runs(filter_string="metrics.Accuracy<1")
-run_id = df_mlflow.loc[df_mlflow['metrics.Accuracy'].idxmax()]['run_id']
-logged_model = f'runs:/{run_id}/ML_models'
-model = mlflow.pyfunc.load_model(logged_model)
+model = joblib.load(MODEL_PATH)
 
 # FastAPI app setup
 app = FastAPI()
