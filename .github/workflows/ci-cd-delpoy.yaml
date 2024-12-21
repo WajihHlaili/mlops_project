@@ -41,6 +41,7 @@ jobs:
         run: |
           git config --global user.name 'Wajih Hlaili'
           git config --global user.email 'wajihhlaili888@gmail.com'
+          git remote set-url origin https://x-access-token:${GIT_TOKEN}@github.com/WajihHlaili/mlops_project.git
           git add .
           git commit -m 'Update model' || echo "No changes to commit"
           git push origin auto-mlops
