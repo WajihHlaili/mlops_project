@@ -25,8 +25,8 @@ jobs:
           DVC_DAGSHUB_USER: ${{ secrets.DAGSHUB_USERNAME }}
           DVC_DAGSHUB_PASS: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
-          dvc remote modify dagshub_remote --local user $DVC_DAGSHUB_USER
-          dvc remote modify dagshub_remote --local password $DVC_DAGSHUB_PASS
+          dvc remote modify origin --local user $DVC_DAGSHUB_USER
+          dvc remote modify origin --local password $DVC_DAGSHUB_PASS
 
       - name: Run DVC Pipeline
         run: dvc repro
