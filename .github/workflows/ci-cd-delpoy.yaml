@@ -27,6 +27,9 @@ jobs:
         run: |
           dvc remote modify origin --local user $DVC_DAGSHUB_USER
           dvc remote modify origin --local password $DVC_DAGSHUB_PASS
+      - name: Pull data from DagsHub
+        run: |
+          dvc pull
 
       - name: Run DVC Pipeline
         run: dvc repro
