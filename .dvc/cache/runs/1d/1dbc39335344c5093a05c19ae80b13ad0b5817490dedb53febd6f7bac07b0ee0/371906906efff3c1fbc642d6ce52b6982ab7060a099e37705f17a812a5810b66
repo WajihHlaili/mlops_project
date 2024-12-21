@@ -1,0 +1,15 @@
+cmd: python src/preprocess.py --input data/raw/car.csv --output data/processed/cleaned_dataset.csv
+deps:
+- path: data/raw/car.csv
+  hash: md5
+  md5: 08c5f2987e4e9366b11011e7f12aee92
+  size: 1041637
+- path: src/preprocess.py
+  hash: md5
+  md5: b47bd16496cd761a4bba601549c97861
+  size: 16517
+outs:
+- path: data/processed/cleaned_dataset.csv
+  hash: md5
+  md5: 1880f2c7c5ce5ffe79950b20b4361b19
+  size: 262978

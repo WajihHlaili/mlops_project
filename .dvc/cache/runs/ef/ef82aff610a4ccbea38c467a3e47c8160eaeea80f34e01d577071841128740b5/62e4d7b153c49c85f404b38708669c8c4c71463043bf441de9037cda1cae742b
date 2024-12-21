@@ -1,0 +1,15 @@
+cmd: python src/train.py --input data/processed/cleaned_dataset.csv --output models/new_model.pkl
+deps:
+- path: data/processed/cleaned_dataset.csv
+  hash: md5
+  md5: 9cea26e578fb8884080273c73bb292cd
+  size: 256225
+- path: src/train.py
+  hash: md5
+  md5: c1bcfef591508ae0c59b143d1b59c040
+  size: 5799
+outs:
+- path: models/new_model.pkl
+  hash: md5
+  md5: 4ffbe0795876581c89907da3837336a1
+  size: 909387
